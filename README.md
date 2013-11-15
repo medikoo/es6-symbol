@@ -4,7 +4,7 @@
 ### Limitations
 
 - Underneath it uses real string property names which can easily be retrieved (however accidental collision with other property names is unlikely)
-- As it needs custom `toString` behavior to work properly. Original `Symbol.prototoype.toString` couldn't be implemented as specified, still it's accessible as `Symbol.prototoype.origigalToString`
+- As it needs custom `toString` behavior to work properly. Original `Symbol.prototoype.toString` couldn't be implemented as specified, still it's accessible as `Symbol.prototoype.origialToString`
 
 ### Usage
 
@@ -20,7 +20,7 @@ If you'd like to use native version when it exists and fallback to polyfill if i
 var Symbol = require('es6-symbol');
 ```
 
-If you strictly want to use polyfill even if native `Symbol` exists (hard to find good reason for that), do:
+If you strictly want to use polyfill even if native `Symbol` exists (hard to find a good reason for that), do:
 
 ```javascript
 var Symbol = require('es6-symbol/polyfill');
@@ -47,7 +47,7 @@ if (possiblyIterable[Symbol.iterator]) {
   while(!result.done) {
     console.log(result.value);
     result = iterator.next();
-	}
+  }
 }
 ```
 
