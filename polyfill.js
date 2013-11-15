@@ -42,9 +42,6 @@ defineProperties(Symbol.prototype, {
 	}),
 	toString: d('', function () { return this.__name__; })
 });
-Object.defineProperty(Symbol.prototype, 'originalToString', d(function () {
-	return 'Symbol (' + this.__description__ + ')';
-}));
 Object.defineProperty(Symbol.prototype, Symbol.toPrimitive, d('',
 	function (hint) {
 		throw new TypeError("Conversion of symbol objects is not allowed");
