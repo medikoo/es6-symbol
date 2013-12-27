@@ -4,7 +4,9 @@ module.exports = function () {
 	var symbol;
 	if (typeof Symbol !== 'function') return false;
 	symbol = new Symbol('test symbol');
-	if (String(symbol) !== 'Symbol (test symbol)') return false;
+	try {
+		if (String(symbol) !== 'Symbol (test symbol)') return false;
+	} catch (e) { return false; }
 	if (typeof Symbol.iterator === 'symbol') return true;
 
 	// Return 'true' for polyfills
