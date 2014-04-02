@@ -2,11 +2,11 @@
 
 var d = require('d/d')
 
-  , defineProperties = Object.defineProperties
+  , create = Object.create, defineProperties = Object.defineProperties
   , generateName, Symbol;
 
 generateName = (function () {
-	var created = Object.create(null);
+	var created = create(null);
 	return function (desc) {
 		var postfix = 0;
 		while (created[desc + (postfix || '')]) ++postfix;
@@ -17,23 +17,27 @@ generateName = (function () {
 }());
 
 module.exports = Symbol = function (description) {
-	if (!(this instanceof Symbol)) return new Symbol(description);
+	var symbol;
+	if (this instanceof Symbol) {
+		throw new TypeError('TypeError: Symbol is not a constructor');
+	}
+	symbol = create(Symbol.prototype);
 	description = (description === undefined ? '' : String(description));
-	return defineProperties(this, {
+	return defineProperties(symbol, {
 		__description__: d('', description),
 		__name__: d('', generateName(description))
 	});
 };
 
 Object.defineProperties(Symbol, {
-	create: d('', new Symbol('create')),
-	hasInstance: d('', new Symbol('hasInstance')),
-	isConcatSpreadable: d('', new Symbol('isConcatSpreadable')),
-	isRegExp: d('', new Symbol('isRegExp')),
-	iterator: d('', new Symbol('iterator')),
-	toPrimitive: d('', new Symbol('toPrimitive')),
-	toStringTag: d('', new Symbol('toStringTag')),
-	unscopables: d('', new Symbol('unscopables'))
+	create: d('', Symbol('create')),
+	hasInstance: d('', Symbol('hasInstance')),
+	isConcatSpreadable: d('', Symbol('isConcatSpreadable')),
+	isRegExp: d('', Symbol('isRegExp')),
+	iterator: d('', Symbol('iterator')),
+	toPrimitive: d('', Symbol('toPrimitive')),
+	toStringTag: d('', Symbol('toStringTag')),
+	unscopables: d('', Symbol('unscopables'))
 });
 
 defineProperties(Symbol.prototype, {

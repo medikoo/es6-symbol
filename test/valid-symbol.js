@@ -11,9 +11,9 @@ module.exports = function (t, a) {
 	a.throws(function () { t({}); }, TypeError, "Object");
 	a.throws(function () { t([]); }, TypeError, "Array");
 	if (typeof Symbol !== 'undefined') {
-		symbol = new Symbol();
+		symbol = Symbol();
 		a(t(symbol), symbol, "Native");
 	}
-	symbol = new SymbolPoly();
+	symbol = SymbolPoly();
 	a(t(symbol), symbol, "Polyfill");
 };

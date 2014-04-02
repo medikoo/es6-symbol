@@ -10,7 +10,7 @@ module.exports = function (t, a) {
 	a(t({}), false, "Object");
 	a(t([]), false, "Array");
 	if (typeof Symbol !== 'undefined') {
-		a(t(new Symbol()), true, "Native");
+		a(t(Symbol()), true, "Native");
 	}
-	a(t(new SymbolPoly()), true, "Polyfill");
+	a(t(SymbolPoly()), true, "Polyfill");
 };

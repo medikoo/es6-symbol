@@ -3,7 +3,7 @@
 module.exports = function () {
 	var symbol;
 	if (typeof Symbol !== 'function') return false;
-	symbol = new Symbol('test symbol');
+	symbol = Symbol('test symbol');
 	try {
 		if (String(symbol) !== 'Symbol (test symbol)') return false;
 	} catch (e) { return false; }
