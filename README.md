@@ -33,7 +33,7 @@ Best is to refer to [specification](http://people.mozilla.org/~jorendorff/es6-dr
 ```javascript
 var Symbol = require('es6-symbol');
 
-var symbol = new Symbol('My custom symbol');
+var symbol = Symbol('My custom symbol');
 var x = {};
 
 x[symbol] = 'foo';
