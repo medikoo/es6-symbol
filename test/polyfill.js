@@ -1,6 +1,6 @@
 'use strict';
 
-var d        = require('d/d')
+var d        = require('d')
   , isSymbol = require('../is-symbol')
 
   , defineProperty = Object.defineProperty;

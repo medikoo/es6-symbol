@@ -1,6 +1,6 @@
 'use strict';
 
-var d = require('d/d')
+var d = require('d')
 
   , create = Object.create, defineProperties = Object.defineProperties
   , generateName, Symbol;
