@@ -4,7 +4,7 @@
 ### Limitations
 
 - Underneath it uses real string property names which can easily be retrieved (however accidental collision with other property names is unlikely)
-- As it needs custom `toString` behavior to work properly. Original `Symbol.prototoype.toString` couldn't be implemented as specified, still it's accessible as `Symbol.prototoype.properToString`
+- As it needs custom `toString` behavior to work properly. Original `Symbol.prototype.toString` couldn't be implemented as specified, still it's accessible as `Symbol.prototoype.properToString`
 
 ### Usage
 
