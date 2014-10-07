@@ -1,3 +1,7 @@
+v0.1.1  --  2014.10.07
+* Fix isImplemented, so it returns true in case of polyfill
+* Improve documentations
+
 v0.1.0  --  2014.04.28
 * Assure strictly npm dependencies
 * Update to use latest versions of dependencies
