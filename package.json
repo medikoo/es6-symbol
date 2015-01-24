@@ -16,10 +16,10 @@
     "url": "git://github.com/medikoo/es6-symbol.git"
   },
   "dependencies": {
-    "d": "~0.1.1",
     "es5-ext": "~0.10.4"
   },
   "devDependencies": {
+    "d": "~0.1.1",
     "tad": "0.2.x"
   },
   "scripts": {
