@@ -15,4 +15,9 @@ module.exports = function (T, a) {
 	a(isSymbol(symbol), true, "Symbol");
 	a(isSymbol(T.iterator), true, "iterator");
 	a(isSymbol(T.toStringTag), true, "toStringTag");
+
+	x = {};
+	x[symbol] = 'foo';
+	a.deep(Object.getOwnPropertyDescriptor(x, symbol), { configurable: true, enumerable: false,
+		value: 'foo', writable: true });
 };

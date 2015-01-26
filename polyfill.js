@@ -3,16 +3,21 @@
 var d = require('d')
 
   , create = Object.create, defineProperties = Object.defineProperties
-  , generateName, Symbol, HiddenSymbol;
+  , defineProperty = Object.defineProperty, objPrototype = Object.prototype
+  , Symbol, HiddenSymbol;
 
-generateName = (function () {
+var generateName = (function () {
 	var created = create(null);
 	return function (desc) {
-		var postfix = 0;
+		var postfix = 0, name;
 		while (created[desc + (postfix || '')]) ++postfix;
 		desc += (postfix || '');
 		created[desc] = true;
-		return '@@' + desc;
+		name = '@@' + desc;
+		defineProperty(objPrototype, name, d.gs(null, function (value) {
+			defineProperty(this, name, d(value));
+		}));
+		return name;
 	};
 }());
 
@@ -45,13 +50,13 @@ defineProperties(HiddenSymbol.prototype, {
 	toString: d('', function () { return this.__name__; })
 });
 
-Object.defineProperty(Symbol.prototype, 'toString',
+defineProperty(Symbol.prototype, 'toString',
 	d(function () { return 'Symbol (' + this.__description__ + ')'; }));
-Object.defineProperty(Symbol.prototype, Symbol.toPrimitive, d('',
+defineProperty(Symbol.prototype, Symbol.toPrimitive, d('',
 	function (hint) { throw new TypeError("Conversion of symbol objects is not allowed"); }));
-Object.defineProperty(Symbol.prototype, Symbol.toStringTag, d('c', 'Symbol'));
+defineProperty(Symbol.prototype, Symbol.toStringTag, d('c', 'Symbol'));
 
-Object.defineProperty(HiddenSymbol.prototype, Symbol.toPrimitive,
+defineProperty(HiddenSymbol.prototype, Symbol.toPrimitive,
 	d('c', Symbol.prototype[Symbol.toPrimitive]));
-Object.defineProperty(HiddenSymbol.prototype, Symbol.toStringTag,
+defineProperty(HiddenSymbol.prototype, Symbol.toStringTag,
 	d('c', Symbol.prototype[Symbol.toStringTag]));
