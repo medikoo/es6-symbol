@@ -10,6 +10,7 @@ module.exports = function (T, a) {
 	defineProperty(x, symbol, d('foo'));
 	a(x.test, undefined, "Name");
 	a(x[symbol], 'foo', "Get");
+	a(x instanceof T, false);
 
 	a(isSymbol(symbol), true, "Symbol");
 	a(isSymbol(T.iterator), true, "iterator");
