@@ -18,9 +18,7 @@ generateName = (function () {
 
 module.exports = Symbol = function (description) {
 	var symbol;
-	if (this instanceof Symbol) {
-		throw new TypeError('TypeError: Symbol is not a constructor');
-	}
+	if (this instanceof Symbol) throw new TypeError('TypeError: Symbol is not a constructor');
 	symbol = create(Symbol.prototype);
 	description = (description === undefined ? '' : String(description));
 	return defineProperties(symbol, {
@@ -41,13 +39,9 @@ Object.defineProperties(Symbol, {
 });
 
 defineProperties(Symbol.prototype, {
-	properToString: d(function () {
-		return 'Symbol (' + this.__description__ + ')';
-	}),
+	properToString: d(function () { return 'Symbol (' + this.__description__ + ')'; }),
 	toString: d('', function () { return this.__name__; })
 });
 Object.defineProperty(Symbol.prototype, Symbol.toPrimitive, d('',
-	function (hint) {
-		throw new TypeError("Conversion of symbol objects is not allowed");
-	}));
+	function (hint) { throw new TypeError("Conversion of symbol objects is not allowed"); }));
 Object.defineProperty(Symbol.prototype, Symbol.toStringTag, d('c', 'Symbol'));
