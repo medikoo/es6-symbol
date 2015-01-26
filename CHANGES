@@ -1,3 +1,10 @@
+v1.0.0  --  2015.01.26
+* Fix enumerability for symbol properties set normally (e.g. obj[symbol] = value)
+* Introduce initialization via hidden constructor
+* Fix isSymbol handling of polyfill values when native Symbol is present
+* Fix spelling of LICENSE
+* Configure lint scripts
+
 v0.1.1  --  2014.10.07
 * Fix isImplemented, so it returns true in case of polyfill
 * Improve documentations
