@@ -49,6 +49,11 @@ defineProperties(Symbol, {
 	hasInstance: d('', Symbol('hasInstance')),
 	isConcatSpreadable: d('', Symbol('isConcatSpreadable')),
 	iterator: d('', Symbol('iterator')),
+	match: d('', Symbol('match')),
+	replace: d('', Symbol('replace')),
+	search: d('', Symbol('search')),
+	species: d('', Symbol('species')),
+	split: d('', Symbol('split')),
 	toPrimitive: d('', Symbol('toPrimitive')),
 	toStringTag: d('', Symbol('toStringTag')),
 	unscopables: d('', Symbol('unscopables'))
