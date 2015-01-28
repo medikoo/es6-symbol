@@ -63,10 +63,12 @@ defineProperties(HiddenSymbol.prototype, {
 	toString: d('', function () { return this.__name__; })
 });
 
-defineProperty(Symbol.prototype, 'toString',
-	d(function () { return 'Symbol (' + this.__description__ + ')'; }));
+defineProperties(Symbol.prototype, {
+	toString: d(function () { return 'Symbol (' + validateSymbol(this).__description__ + ')'; }),
+	valueOf: d(function () { return validateSymbol(this); })
+});
 defineProperty(Symbol.prototype, Symbol.toPrimitive, d('',
-	function (hint) { throw new TypeError("Conversion of symbol objects is not allowed"); }));
+	function () { return validateSymbol(this); }));
 defineProperty(Symbol.prototype, Symbol.toStringTag, d('c', 'Symbol'));
 
 defineProperty(HiddenSymbol.prototype, Symbol.toPrimitive,
