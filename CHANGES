@@ -1,3 +1,13 @@
+v2.0.0  --  2015.01.28
+* Update up to changes in specification:
+  * Implement `for` and `keyFor`
+  * Remove `Symbol.create` and `Symbol.isRegExp`
+  * Add `Symbol.match`, `Symbol.replace`, `Symbol.search`, `Symbol.species` and
+    `Symbol.split`
+* Rename `validSymbol` to `validateSymbol`
+* Improve documentation
+* Remove dead test modules
+
 v1.0.0  --  2015.01.26
 * Fix enumerability for symbol properties set normally (e.g. obj[symbol] = value)
 * Introduce initialization via hidden constructor
