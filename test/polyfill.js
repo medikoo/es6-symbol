@@ -20,4 +20,8 @@ module.exports = function (T, a) {
 	x[symbol] = 'foo';
 	a.deep(Object.getOwnPropertyDescriptor(x, symbol), { configurable: true, enumerable: false,
 		value: 'foo', writable: true });
+	symbol = T.for('marko');
+	a(isSymbol(symbol), true);
+	a(T.for('marko'), symbol);
+	a(T.keyFor(symbol), 'marko');
 };

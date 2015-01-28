@@ -1,10 +1,11 @@
 'use strict';
 
-var d = require('d')
+var d              = require('d')
+  , validateSymbol = require('./validate-symbol')
 
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
-  , Symbol, HiddenSymbol;
+  , Symbol, HiddenSymbol, globalSymbols = create(null);
 
 var generateName = (function () {
 	var created = create(null);
@@ -36,6 +37,15 @@ module.exports = Symbol = function Symbol(description) {
 	});
 };
 defineProperties(Symbol, {
+	for: d(function (key) {
+		if (globalSymbols[key]) return globalSymbols[key];
+		return (globalSymbols[key] = Symbol(String(key)));
+	}),
+	keyFor: d(function (s) {
+		var key;
+		validateSymbol(s);
+		for (key in globalSymbols) if (globalSymbols[key] === s) return key;
+	}),
 	create: d('', Symbol('create')),
 	hasInstance: d('', Symbol('hasInstance')),
 	isConcatSpreadable: d('', Symbol('isConcatSpreadable')),
