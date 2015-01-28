@@ -48,7 +48,6 @@ defineProperties(Symbol, {
 	}),
 	hasInstance: d('', Symbol('hasInstance')),
 	isConcatSpreadable: d('', Symbol('isConcatSpreadable')),
-	isRegExp: d('', Symbol('isRegExp')),
 	iterator: d('', Symbol('iterator')),
 	toPrimitive: d('', Symbol('toPrimitive')),
 	toStringTag: d('', Symbol('toStringTag')),
