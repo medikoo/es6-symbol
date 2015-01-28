@@ -46,7 +46,6 @@ defineProperties(Symbol, {
 		validateSymbol(s);
 		for (key in globalSymbols) if (globalSymbols[key] === s) return key;
 	}),
-	create: d('', Symbol('create')),
 	hasInstance: d('', Symbol('hasInstance')),
 	isConcatSpreadable: d('', Symbol('isConcatSpreadable')),
 	isRegExp: d('', Symbol('isRegExp')),
