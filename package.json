@@ -1,6 +1,6 @@
 {
   "name": "es6-symbol",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "ECMAScript 6 Symbol polyfill",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
@@ -19,12 +19,12 @@
   },
   "dependencies": {
     "d": "~0.1.1",
-    "es5-ext": "~0.10.5"
+    "es5-ext": "~0.10.7"
   },
   "devDependencies": {
-    "tad": "~0.2.1",
+    "tad": "~0.2.3",
     "xlint": "~0.2.2",
-    "xlint-jslint-medikoo": "~0.1.2"
+    "xlint-jslint-medikoo": "~0.1.4"
   },
   "scripts": {
     "lint": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --no-cache --no-stream",
