@@ -5,7 +5,9 @@ var d              = require('d')
 
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
-  , SymbolPolyfill, HiddenSymbol, globalSymbols = create(null);
+  , NativeSymbol, SymbolPolyfill, HiddenSymbol, globalSymbols = create(null);
+
+if (typeof Symbol === 'function') NativeSymbol = Symbol;
 
 var generateName = (function () {
 	var created = create(null);
@@ -46,17 +48,18 @@ defineProperties(SymbolPolyfill, {
 		validateSymbol(s);
 		for (key in globalSymbols) if (globalSymbols[key] === s) return key;
 	}),
-	hasInstance: d('', SymbolPolyfill('hasInstance')),
-	isConcatSpreadable: d('', SymbolPolyfill('isConcatSpreadable')),
-	iterator: d('', SymbolPolyfill('iterator')),
-	match: d('', SymbolPolyfill('match')),
-	replace: d('', SymbolPolyfill('replace')),
-	search: d('', SymbolPolyfill('search')),
-	species: d('', SymbolPolyfill('species')),
-	split: d('', SymbolPolyfill('split')),
-	toPrimitive: d('', SymbolPolyfill('toPrimitive')),
-	toStringTag: d('', SymbolPolyfill('toStringTag')),
-	unscopables: d('', SymbolPolyfill('unscopables'))
+	hasInstance: d('', (NativeSymbol && NativeSymbol.hasInstance) || SymbolPolyfill('hasInstance')),
+	isConcatSpreadable: d('', (NativeSymbol && NativeSymbol.isConcatSpreadable) ||
+		SymbolPolyfill('isConcatSpreadable')),
+	iterator: d('', (NativeSymbol && NativeSymbol.iterator) || SymbolPolyfill('iterator')),
+	match: d('', (NativeSymbol && NativeSymbol.match) || SymbolPolyfill('match')),
+	replace: d('', (NativeSymbol && NativeSymbol.replace) || SymbolPolyfill('replace')),
+	search: d('', (NativeSymbol && NativeSymbol.search) || SymbolPolyfill('search')),
+	species: d('', (NativeSymbol && NativeSymbol.species) || SymbolPolyfill('species')),
+	split: d('', (NativeSymbol && NativeSymbol.split) || SymbolPolyfill('split')),
+	toPrimitive: d('', (NativeSymbol && NativeSymbol.toPrimitive) || SymbolPolyfill('toPrimitive')),
+	toStringTag: d('', (NativeSymbol && NativeSymbol.toStringTag) || SymbolPolyfill('toStringTag')),
+	unscopables: d('', (NativeSymbol && NativeSymbol.unscopables) || SymbolPolyfill('unscopables'))
 });
 defineProperties(HiddenSymbol.prototype, {
 	constructor: d(SymbolPolyfill),
