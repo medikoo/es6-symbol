@@ -12,13 +12,20 @@ if (typeof Symbol === 'function') NativeSymbol = Symbol;
 var generateName = (function () {
 	var created = create(null);
 	return function (desc) {
-		var postfix = 0, name;
+		var postfix = 0, name, ie11BugWorkaround;
 		while (created[desc + (postfix || '')]) ++postfix;
 		desc += (postfix || '');
 		created[desc] = true;
 		name = '@@' + desc;
 		defineProperty(objPrototype, name, d.gs(null, function (value) {
+			// For IE11 issue see:
+			// https://connect.microsoft.com/IE/feedbackdetail/view/1928508/
+			//    ie11-broken-getters-on-dom-objects
+			// https://github.com/medikoo/es6-symbol/issues/12
+			if (ie11BugWorkaround) return;
+			ie11BugWorkaround = true;
 			defineProperty(this, name, d(value));
+			ie11BugWorkaround = false;
 		}));
 		return name;
 	};
