@@ -1,3 +1,7 @@
+v3.0.2  --  2015.12.12
+* Fix definition flow, so uneven state of Symbol implementation doesn't crash initialization of
+  polyfill. See #13
+
 v3.0.1  --  2015.10.22
 * Workaround for IE11 bug (reported in #12)
 
