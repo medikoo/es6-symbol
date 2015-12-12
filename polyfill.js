@@ -1,3 +1,5 @@
+// ES2015 Symbol polyfill for environments that do not support it (or partially support it_
+
 'use strict';
 
 var d              = require('d')
@@ -31,10 +33,15 @@ var generateName = (function () {
 	};
 }());
 
+// Internal constructor (not one exposed) for creating Symbol instances.
+// This one is used to ensure that `someSymbol instanceof Symbol` always return false
 HiddenSymbol = function Symbol(description) {
 	if (this instanceof HiddenSymbol) throw new TypeError('TypeError: Symbol is not a constructor');
 	return SymbolPolyfill(description);
 };
+
+// Exposed `Symbol` constructor
+// (returns instances of HiddenSymbol)
 module.exports = SymbolPolyfill = function Symbol(description) {
 	var symbol;
 	if (this instanceof Symbol) throw new TypeError('TypeError: Symbol is not a constructor');
@@ -55,6 +62,9 @@ defineProperties(SymbolPolyfill, {
 		validateSymbol(s);
 		for (key in globalSymbols) if (globalSymbols[key] === s) return key;
 	}),
+
+	// If there's native implementation of given symbol, let's fallback to it
+	// to ensure proper interoperability with other native functions e.g. Array.from
 	hasInstance: d('', (NativeSymbol && NativeSymbol.hasInstance) || SymbolPolyfill('hasInstance')),
 	isConcatSpreadable: d('', (NativeSymbol && NativeSymbol.isConcatSpreadable) ||
 		SymbolPolyfill('isConcatSpreadable')),
@@ -68,11 +78,15 @@ defineProperties(SymbolPolyfill, {
 	toStringTag: d('', (NativeSymbol && NativeSymbol.toStringTag) || SymbolPolyfill('toStringTag')),
 	unscopables: d('', (NativeSymbol && NativeSymbol.unscopables) || SymbolPolyfill('unscopables'))
 });
+
+// Internal tweaks for real symbol producer
 defineProperties(HiddenSymbol.prototype, {
 	constructor: d(SymbolPolyfill),
 	toString: d('', function () { return this.__name__; })
 });
 
+// Proper implementation of methods exposed on Symbol.prototype
+// They won't be accessible on produced symbol instances as they derive from HiddenSymbol.prototype
 defineProperties(SymbolPolyfill.prototype, {
 	toString: d(function () { return 'Symbol (' + validateSymbol(this).__description__ + ')'; }),
 	valueOf: d(function () { return validateSymbol(this); })
@@ -81,6 +95,7 @@ defineProperty(SymbolPolyfill.prototype, SymbolPolyfill.toPrimitive, d('',
 	function () { return validateSymbol(this); }));
 defineProperty(SymbolPolyfill.prototype, SymbolPolyfill.toStringTag, d('c', 'Symbol'));
 
+// Proper implementaton of toPrimitive and toStringTag for returned symbol instances
 defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
 	d('c', SymbolPolyfill.prototype[SymbolPolyfill.toPrimitive]));
 defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toStringTag,
