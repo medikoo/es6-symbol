@@ -1,4 +1,4 @@
-// ES2015 Symbol polyfill for environments that do not support it (or partially support it_
+// ES2015 Symbol polyfill for environments that do not support it (or partially support it)
 
 'use strict';
 
