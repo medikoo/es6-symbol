@@ -5,7 +5,11 @@ module.exports = function () {
 	if (typeof Symbol !== 'function') return false;
 	symbol = Symbol('test symbol');
 	try { String(symbol); } catch (e) { return false; }
-	if (typeof Symbol.iterator === 'symbol') return true;
+	if ((typeof Symbol.iterator === 'symbol') &&
+			(typeof Symbol.toPrimitive === 'symbol') &&
+			(typeof Symbol.toStringTag === 'symbol')) {
+		return true;
+	}
 
 	// Return 'true' for polyfills
 	if (typeof Symbol.isConcatSpreadable !== 'object') return false;
