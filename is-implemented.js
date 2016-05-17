@@ -1,5 +1,7 @@
 'use strict';
 
+var validTypes = { object: true, symbol: true };
+
 module.exports = function () {
 	var symbol;
 	if (typeof Symbol !== 'function') return false;
@@ -12,11 +14,11 @@ module.exports = function () {
 	}
 
 	// Return 'true' for polyfills
-	if (typeof Symbol.isConcatSpreadable !== 'object') return false;
-	if (typeof Symbol.iterator !== 'object') return false;
-	if (typeof Symbol.toPrimitive !== 'object') return false;
-	if (typeof Symbol.toStringTag !== 'object') return false;
-	if (typeof Symbol.unscopables !== 'object') return false;
+	if (!validTypes[typeof Symbol.isConcatSpreadable]) return false;
+	if (!validTypes[typeof Symbol.iterator]) return false;
+	if (!validTypes[typeof Symbol.toPrimitive]) return false;
+	if (!validTypes[typeof Symbol.toStringTag]) return false;
+	if (!validTypes[typeof Symbol.unscopables]) return false;
 
 	return true;
 };
