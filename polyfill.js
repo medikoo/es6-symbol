@@ -7,9 +7,16 @@ var d              = require('d')
 
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
-  , NativeSymbol, SymbolPolyfill, HiddenSymbol, globalSymbols = create(null);
+  , NativeSymbol, SymbolPolyfill, HiddenSymbol, globalSymbols = create(null)
+  , isNativeSafe;
 
-if (typeof Symbol === 'function') NativeSymbol = Symbol;
+if (typeof Symbol === 'function') {
+	NativeSymbol = Symbol;
+	try {
+		String(NativeSymbol());
+		isNativeSafe = true;
+	} catch (ignore) {}
+}
 
 var generateName = (function () {
 	var created = create(null);
@@ -45,6 +52,7 @@ HiddenSymbol = function Symbol(description) {
 module.exports = SymbolPolyfill = function Symbol(description) {
 	var symbol;
 	if (this instanceof Symbol) throw new TypeError('TypeError: Symbol is not a constructor');
+	if (isNativeSafe) return NativeSymbol(description);
 	symbol = create(HiddenSymbol.prototype);
 	description = (description === undefined ? '' : String(description));
 	return defineProperties(symbol, {
