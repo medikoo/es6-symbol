@@ -1,6 +1,6 @@
 {
   "name": "es6-symbol",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "ECMAScript 6 Symbol polyfill",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "d": "~0.1.1",
-    "es5-ext": "~0.10.10"
+    "es5-ext": "~0.10.11"
   },
   "devDependencies": {
     "tad": "~0.2.4",
