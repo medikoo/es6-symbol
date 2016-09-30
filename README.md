@@ -12,7 +12,7 @@ Underneath it uses real string property names which can easily be retrieved, how
 
 ### Usage
 
-It’s safest to use *es6-symbol* as a [ponyfill](http://kikobeats.com/polyfill-ponyfill-and-prollyfill/) – a polyfill which doesn’t touch global objects:
+It’s safest to use *es6-symbol* as a [ponyfill](https://ponyfill.com) – a polyfill which doesn’t touch global objects:
 
 ```javascript
 var Symbol = require('es6-symbol');
