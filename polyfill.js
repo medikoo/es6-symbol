@@ -43,7 +43,7 @@ var generateName = (function () {
 // Internal constructor (not one exposed) for creating Symbol instances.
 // This one is used to ensure that `someSymbol instanceof Symbol` always return false
 HiddenSymbol = function Symbol(description) {
-	if (this instanceof HiddenSymbol) throw new TypeError('TypeError: Symbol is not a constructor');
+	if (this instanceof HiddenSymbol) throw new TypeError('Symbol is not a constructor');
 	return SymbolPolyfill(description);
 };
 
@@ -51,7 +51,7 @@ HiddenSymbol = function Symbol(description) {
 // (returns instances of HiddenSymbol)
 module.exports = SymbolPolyfill = function Symbol(description) {
 	var symbol;
-	if (this instanceof Symbol) throw new TypeError('TypeError: Symbol is not a constructor');
+	if (this instanceof Symbol) throw new TypeError('Symbol is not a constructor');
 	if (isNativeSafe) return NativeSymbol(description);
 	symbol = create(HiddenSymbol.prototype);
 	description = (description === undefined ? '' : String(description));
