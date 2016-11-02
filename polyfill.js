@@ -1,4 +1,4 @@
-// ES2015 Symbol polyfill for environments that do not support it (or partially support it)
+// ES2015 Symbol polyfill for environments that do not (or partially) support it
 
 'use strict';
 
@@ -71,8 +71,8 @@ defineProperties(SymbolPolyfill, {
 		for (key in globalSymbols) if (globalSymbols[key] === s) return key;
 	}),
 
-	// If there's a native implementation of given symbol, let's fallback to it
-	// to ensure proper interoperability with other native functions e.g. Array.from
+	// To ensure proper interoperability with other native functions (e.g. Array.from)
+	// fallback to eventual native implementation of given symbol
 	hasInstance: d('', (NativeSymbol && NativeSymbol.hasInstance) || SymbolPolyfill('hasInstance')),
 	isConcatSpreadable: d('', (NativeSymbol && NativeSymbol.isConcatSpreadable) ||
 		SymbolPolyfill('isConcatSpreadable')),
