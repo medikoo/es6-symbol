@@ -61,7 +61,7 @@ module.exports = SymbolPolyfill = function Symbol(description) {
 	});
 };
 defineProperties(SymbolPolyfill, {
-	for: d(function (key) {
+	"for": d(function (key) {
 		if (globalSymbols[key]) return globalSymbols[key];
 		return (globalSymbols[key] = SymbolPolyfill(String(key)));
 	}),
