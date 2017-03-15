@@ -1,3 +1,8 @@
+v3.1.1  --  2017.03.15
+* Improve documentation
+* Improve error messages
+* Update dependencies
+
 v3.1.0  --  2016.06.03
 * Fix internals of symbol detection
 * Ensure Symbol.prototype[Symbol.toPrimitive] in all cases returns primitive value
