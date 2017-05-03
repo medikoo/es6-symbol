@@ -3,6 +3,7 @@
   "version": "3.1.1",
   "description": "ECMAScript 6 Symbol polyfill",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
+  "browserify": "./dist/polyfill.js",
   "keywords": [
     "symbol",
     "private",
@@ -22,11 +23,13 @@
     "es5-ext": "~0.10.14"
   },
   "devDependencies": {
+    "browserify": "~14.3.0",
     "tad": "~0.2.7",
     "xlint": "~0.2.2",
     "xlint-jslint-medikoo": "~0.1.4"
   },
   "scripts": {
+    "build": "mkdir -p dist && browserify implement.js -o dist/polyfill.js",
     "lint": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --no-cache --no-stream",
     "lint-console": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --watch",
     "test": "node ./node_modules/tad/bin/tad"
