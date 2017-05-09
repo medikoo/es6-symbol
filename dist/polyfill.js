@@ -2,12 +2,12 @@
 'use strict';
 
 if (!require('./is-implemented')()) {
-	Object.defineProperty(require('es5-ext/global'), 'Symbol',
+	Object.defineProperty(window, 'Symbol',
 		{ value: require('./polyfill'), configurable: true, enumerable: false,
 			writable: true });
 }
 
-},{"./is-implemented":2,"./polyfill":18,"es5-ext/global":5}],2:[function(require,module,exports){
+},{"./is-implemented":2,"./polyfill":17}],2:[function(require,module,exports){
 'use strict';
 
 var validTypes = { object: true, symbol: true };
@@ -102,19 +102,14 @@ d.gs = function (dscr, get, set/*, options*/) {
 	return !options ? desc : assign(normalizeOpts(options), desc);
 };
 
-},{"es5-ext/object/assign":6,"es5-ext/object/is-callable":9,"es5-ext/object/normalize-options":13,"es5-ext/string/#/contains":15}],5:[function(require,module,exports){
-'use strict';
-
-module.exports = new Function("return this")();
-
-},{}],6:[function(require,module,exports){
+},{"es5-ext/object/assign":5,"es5-ext/object/is-callable":8,"es5-ext/object/normalize-options":12,"es5-ext/string/#/contains":14}],5:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./is-implemented')()
 	? Object.assign
 	: require('./shim');
 
-},{"./is-implemented":7,"./shim":8}],7:[function(require,module,exports){
+},{"./is-implemented":6,"./shim":7}],6:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -125,7 +120,7 @@ module.exports = function () {
 	return (obj.foo + obj.bar + obj.trzy) === 'razdwatrzy';
 };
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 var keys  = require('../keys')
@@ -149,21 +144,21 @@ module.exports = function (dest, src/*, …srcn*/) {
 	return dest;
 };
 
-},{"../keys":10,"../valid-value":14}],9:[function(require,module,exports){
+},{"../keys":9,"../valid-value":13}],8:[function(require,module,exports){
 // Deprecated
 
 'use strict';
 
 module.exports = function (obj) { return typeof obj === 'function'; };
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./is-implemented')()
 	? Object.keys
 	: require('./shim');
 
-},{"./is-implemented":11,"./shim":12}],11:[function(require,module,exports){
+},{"./is-implemented":10,"./shim":11}],10:[function(require,module,exports){
 'use strict';
 
 module.exports = function () {
@@ -173,7 +168,7 @@ module.exports = function () {
 	} catch (e) { return false; }
 };
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 var keys = Object.keys;
@@ -182,7 +177,7 @@ module.exports = function (object) {
 	return keys(object == null ? object : Object(object));
 };
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 var forEach = Array.prototype.forEach, create = Object.create;
@@ -201,7 +196,7 @@ module.exports = function (options/*, …options*/) {
 	return result;
 };
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = function (value) {
@@ -209,14 +204,14 @@ module.exports = function (value) {
 	return value;
 };
 
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./is-implemented')()
 	? String.prototype.contains
 	: require('./shim');
 
-},{"./is-implemented":16,"./shim":17}],16:[function(require,module,exports){
+},{"./is-implemented":15,"./shim":16}],15:[function(require,module,exports){
 'use strict';
 
 var str = 'razdwatrzy';
@@ -226,7 +221,7 @@ module.exports = function () {
 	return ((str.contains('dwa') === true) && (str.contains('foo') === false));
 };
 
-},{}],17:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 var indexOf = String.prototype.indexOf;
@@ -235,7 +230,7 @@ module.exports = function (searchString/*, position*/) {
 	return indexOf.call(this, searchString, arguments[1]) > -1;
 };
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 // ES2015 Symbol polyfill for environments that do not (or partially) support it
 
 'use strict';
@@ -355,7 +350,7 @@ defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toStringTag,
 defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
 	d('c', SymbolPolyfill.prototype[SymbolPolyfill.toPrimitive]));
 
-},{"./validate-symbol":19,"d":4}],19:[function(require,module,exports){
+},{"./validate-symbol":18,"d":4}],18:[function(require,module,exports){
 'use strict';
 
 var isSymbol = require('./is-symbol');
