@@ -4,7 +4,7 @@
 For more information about symbols see following links
 - [Symbols in ECMAScript 6 by Axel Rauschmayer](http://www.2ality.com/2014/12/es6-symbols.html)
 - [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
-- [Specification](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-symbol-constructor)
+- [Specification](https://tc39.github.io/ecma262/#sec-symbol-objects)
 
 ### Limitations
 
@@ -32,7 +32,7 @@ var Symbol = require('es6-symbol/polyfill');
 
 #### API
 
-Best is to refer to [specification](http://people.mozilla.org/~jorendorff/es6-draft.html#sec-symbol-objects). Still if you want quick look, follow examples:
+Best is to refer to [specification](https://tc39.github.io/ecma262/#sec-symbol-objects). Still if you want quick look, follow examples:
 
 ```javascript
 var Symbol = require('es6-symbol');
