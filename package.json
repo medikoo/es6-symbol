@@ -1,5 +1,5 @@
 {
-  "name": "es6-symbol",
+  "name": "@github/es6-symbol",
   "version": "3.1.1",
   "description": "ECMAScript 6 Symbol polyfill",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
@@ -16,7 +16,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/medikoo/es6-symbol.git"
+    "url": "git://github.com/github/es6-symbol.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.registry.github.com"
   },
   "dependencies": {
     "d": "1",
