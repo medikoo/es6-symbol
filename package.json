@@ -1,6 +1,6 @@
 {
   "name": "@github/es6-symbol",
-  "version": "3.1.1",
+  "version": "3.1.1-github1",
   "description": "ECMAScript 6 Symbol polyfill",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "browser": "./dist/polyfill.js",
