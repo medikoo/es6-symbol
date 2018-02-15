@@ -32,7 +32,7 @@
     "xlint-jslint-medikoo": "~0.1.4"
   },
   "scripts": {
-    "build": "mkdir -p dist && browserify implement.js -o dist/polyfill.js",
+    "prepare": "mkdir -p dist && browserify implement.js -o dist/polyfill.js",
     "lint": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --no-cache --no-stream",
     "lint-console": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --watch",
     "test": "node ./node_modules/tad/bin/tad"
