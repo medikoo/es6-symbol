@@ -2,4 +2,6 @@
 
 'use strict';
 
+var Symbol = require('./native-symbol.js');
+
 module.exports = typeof Symbol === 'function' && typeof Symbol() === 'symbol';

@@ -1,6 +1,8 @@
 'use strict';
 
-var validTypes = { object: true, symbol: true };
+var Symbol = require('./native-symbol.js')
+
+  , validTypes = { object: true, symbol: true };
 
 module.exports = function () {
 	var symbol;
