@@ -1,6 +1,5 @@
 'use strict';
 
-var global       = require('es5-ext/global')
-  , Symbol = require('../native-symbol');
+var global = require('es5-ext/global');
 
-module.exports = function (t, a) { a(Symbol, global.Symbol); };
+module.exports = function (t, a) { a(t(), global.Symbol); };

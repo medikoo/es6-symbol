@@ -4,4 +4,6 @@
 
 var global = require('es5-ext/global');
 
-module.exports = global.Symbol;
+module.exports = function() {
+	return global.Symbol;
+}

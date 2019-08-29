@@ -1,10 +1,11 @@
 'use strict';
 
-var Symbol = require('./native-symbol')
+var global = require('es5-ext/global')
 
   , validTypes = { object: true, symbol: true };
 
 module.exports = function () {
+	var Symbol = global.Symbol;
 	var symbol;
 	if (typeof Symbol !== 'function') return false;
 	symbol = Symbol('test symbol');

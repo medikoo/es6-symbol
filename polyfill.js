@@ -4,7 +4,7 @@
 
 var d              = require('d')
   , validateSymbol = require('./validate-symbol')
-  , Symbol         = require('./native-symbol')
+  , Symbol         = require('./native-symbol')()
 
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
