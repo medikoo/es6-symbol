@@ -1,5 +1,5 @@
 'use strict';
 
-var Symbol = require('./native-symbol')();
+var global = require('es5-ext/global');
 
-module.exports = require('./is-implemented')() ? Symbol : require('./polyfill');
+module.exports = require('./is-implemented')() ? global.Symbol : require('./polyfill');

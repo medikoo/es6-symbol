@@ -4,8 +4,9 @@
 
 var d              = require('d')
   , validateSymbol = require('./validate-symbol')
-  , Symbol         = require('./native-symbol')()
+  , global         = require('es5-ext/global')
 
+  , Symbol = global.Symbol
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
   , NativeSymbol, SymbolPolyfill, HiddenSymbol, globalSymbols = create(null)
