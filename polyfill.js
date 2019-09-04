@@ -4,12 +4,12 @@
 
 var d              = require("d")
   , validateSymbol = require("./validate-symbol")
-  , NativeSymbol   = require("es5-ext/global").Symbol;
+  , NativeSymbol   = require("es5-ext/global").Symbol
+  , generateName   = require("./lib/private/generate-name");
 
 var create = Object.create
   , defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty
-  , objPrototype = Object.prototype
   , globalSymbols = create(null);
 
 var SymbolPolyfill, HiddenSymbol, isNativeSafe;
@@ -22,32 +22,6 @@ if (typeof NativeSymbol === "function") {
 } else {
 	NativeSymbol = null;
 }
-
-var generateName = (function () {
-	var created = create(null);
-	return function (desc) {
-		var postfix = 0, name, ie11BugWorkaround;
-		while (created[desc + (postfix || "")]) ++postfix;
-		desc += postfix || "";
-		created[desc] = true;
-		name = "@@" + desc;
-		defineProperty(
-			objPrototype,
-			name,
-			d.gs(null, function (value) {
-				// For IE11 issue see:
-				// https://connect.microsoft.com/IE/feedbackdetail/view/1928508/
-				//    ie11-broken-getters-on-dom-objects
-				// https://github.com/medikoo/es6-symbol/issues/12
-				if (ie11BugWorkaround) return;
-				ie11BugWorkaround = true;
-				defineProperty(this, name, d(value));
-				ie11BugWorkaround = false;
-			})
-		);
-		return name;
-	};
-})();
 
 // Internal constructor (not one exposed) for creating Symbol instances.
 // This one is used to ensure that `someSymbol instanceof Symbol` always return false
