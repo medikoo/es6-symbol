@@ -1,10 +1,10 @@
 // ES2015 Symbol polyfill for environments that do not (or partially) support it
 
-'use strict';
+"use strict";
 
-var d              = require('d')
-  , validateSymbol = require('./validate-symbol')
-  , global         = require('es5-ext/global')
+var d              = require("d")
+  , validateSymbol = require("./validate-symbol")
+  , global         = require("es5-ext/global")
 
   , Symbol = global.Symbol
   , create = Object.create, defineProperties = Object.defineProperties
@@ -12,7 +12,7 @@ var d              = require('d')
   , NativeSymbol, SymbolPolyfill, HiddenSymbol, globalSymbols = create(null)
   , isNativeSafe;
 
-if (typeof Symbol === 'function') {
+if (typeof Symbol === "function") {
 	NativeSymbol = Symbol;
 	try {
 		String(NativeSymbol());
@@ -24,10 +24,10 @@ var generateName = (function () {
 	var created = create(null);
 	return function (desc) {
 		var postfix = 0, name, ie11BugWorkaround;
-		while (created[desc + (postfix || '')]) ++postfix;
-		desc += (postfix || '');
+		while (created[desc + (postfix || "")]) ++postfix;
+		desc += (postfix || "");
 		created[desc] = true;
-		name = '@@' + desc;
+		name = "@@" + desc;
 		defineProperty(objPrototype, name, d.gs(null, function (value) {
 			// For IE11 issue see:
 			// https://connect.microsoft.com/IE/feedbackdetail/view/1928508/
@@ -45,7 +45,7 @@ var generateName = (function () {
 // Internal constructor (not one exposed) for creating Symbol instances.
 // This one is used to ensure that `someSymbol instanceof Symbol` always return false
 HiddenSymbol = function Symbol(description) {
-	if (this instanceof HiddenSymbol) throw new TypeError('Symbol is not a constructor');
+	if (this instanceof HiddenSymbol) throw new TypeError("Symbol is not a constructor");
 	return SymbolPolyfill(description);
 };
 
@@ -53,13 +53,13 @@ HiddenSymbol = function Symbol(description) {
 // (returns instances of HiddenSymbol)
 module.exports = SymbolPolyfill = function Symbol(description) {
 	var symbol;
-	if (this instanceof Symbol) throw new TypeError('Symbol is not a constructor');
+	if (this instanceof Symbol) throw new TypeError("Symbol is not a constructor");
 	if (isNativeSafe) return NativeSymbol(description);
 	symbol = create(HiddenSymbol.prototype);
-	description = (description === undefined ? '' : String(description));
+	description = (description === undefined ? "" : String(description));
 	return defineProperties(symbol, {
-		__description__: d('', description),
-		__name__: d('', generateName(description))
+		__description__: d("", description),
+		__name__: d("", generateName(description))
 	});
 };
 defineProperties(SymbolPolyfill, {
@@ -75,46 +75,46 @@ defineProperties(SymbolPolyfill, {
 
 	// To ensure proper interoperability with other native functions (e.g. Array.from)
 	// fallback to eventual native implementation of given symbol
-	hasInstance: d('', (NativeSymbol && NativeSymbol.hasInstance) || SymbolPolyfill('hasInstance')),
-	isConcatSpreadable: d('', (NativeSymbol && NativeSymbol.isConcatSpreadable) ||
-		SymbolPolyfill('isConcatSpreadable')),
-	iterator: d('', (NativeSymbol && NativeSymbol.iterator) || SymbolPolyfill('iterator')),
-	match: d('', (NativeSymbol && NativeSymbol.match) || SymbolPolyfill('match')),
-	replace: d('', (NativeSymbol && NativeSymbol.replace) || SymbolPolyfill('replace')),
-	search: d('', (NativeSymbol && NativeSymbol.search) || SymbolPolyfill('search')),
-	species: d('', (NativeSymbol && NativeSymbol.species) || SymbolPolyfill('species')),
-	split: d('', (NativeSymbol && NativeSymbol.split) || SymbolPolyfill('split')),
-	toPrimitive: d('', (NativeSymbol && NativeSymbol.toPrimitive) || SymbolPolyfill('toPrimitive')),
-	toStringTag: d('', (NativeSymbol && NativeSymbol.toStringTag) || SymbolPolyfill('toStringTag')),
-	unscopables: d('', (NativeSymbol && NativeSymbol.unscopables) || SymbolPolyfill('unscopables'))
+	hasInstance: d("", (NativeSymbol && NativeSymbol.hasInstance) || SymbolPolyfill("hasInstance")),
+	isConcatSpreadable: d("", (NativeSymbol && NativeSymbol.isConcatSpreadable) ||
+		SymbolPolyfill("isConcatSpreadable")),
+	iterator: d("", (NativeSymbol && NativeSymbol.iterator) || SymbolPolyfill("iterator")),
+	match: d("", (NativeSymbol && NativeSymbol.match) || SymbolPolyfill("match")),
+	replace: d("", (NativeSymbol && NativeSymbol.replace) || SymbolPolyfill("replace")),
+	search: d("", (NativeSymbol && NativeSymbol.search) || SymbolPolyfill("search")),
+	species: d("", (NativeSymbol && NativeSymbol.species) || SymbolPolyfill("species")),
+	split: d("", (NativeSymbol && NativeSymbol.split) || SymbolPolyfill("split")),
+	toPrimitive: d("", (NativeSymbol && NativeSymbol.toPrimitive) || SymbolPolyfill("toPrimitive")),
+	toStringTag: d("", (NativeSymbol && NativeSymbol.toStringTag) || SymbolPolyfill("toStringTag")),
+	unscopables: d("", (NativeSymbol && NativeSymbol.unscopables) || SymbolPolyfill("unscopables"))
 });
 
 // Internal tweaks for real symbol producer
 defineProperties(HiddenSymbol.prototype, {
 	constructor: d(SymbolPolyfill),
-	toString: d('', function () { return this.__name__; })
+	toString: d("", function () { return this.__name__; })
 });
 
 // Proper implementation of methods exposed on Symbol.prototype
 // They won't be accessible on produced symbol instances as they derive from HiddenSymbol.prototype
 defineProperties(SymbolPolyfill.prototype, {
-	toString: d(function () { return 'Symbol (' + validateSymbol(this).__description__ + ')'; }),
+	toString: d(function () { return "Symbol (" + validateSymbol(this).__description__ + ")"; }),
 	valueOf: d(function () { return validateSymbol(this); })
 });
-defineProperty(SymbolPolyfill.prototype, SymbolPolyfill.toPrimitive, d('', function () {
+defineProperty(SymbolPolyfill.prototype, SymbolPolyfill.toPrimitive, d("", function () {
 	var symbol = validateSymbol(this);
-	if (typeof symbol === 'symbol') return symbol;
+	if (typeof symbol === "symbol") return symbol;
 	return symbol.toString();
 }));
-defineProperty(SymbolPolyfill.prototype, SymbolPolyfill.toStringTag, d('c', 'Symbol'));
+defineProperty(SymbolPolyfill.prototype, SymbolPolyfill.toStringTag, d("c", "Symbol"));
 
 // Proper implementaton of toPrimitive and toStringTag for returned symbol instances
 defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toStringTag,
-	d('c', SymbolPolyfill.prototype[SymbolPolyfill.toStringTag]));
+	d("c", SymbolPolyfill.prototype[SymbolPolyfill.toStringTag]));
 
 // Note: It's important to define `toPrimitive` as last one, as some implementations
 // implement `toPrimitive` natively without implementing `toStringTag` (or other specified symbols)
 // And that may invoke error in definition flow:
 // See: https://github.com/medikoo/es6-symbol/issues/13#issuecomment-164146149
 defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
-	d('c', SymbolPolyfill.prototype[SymbolPolyfill.toPrimitive]));
+	d("c", SymbolPolyfill.prototype[SymbolPolyfill.toPrimitive]));
