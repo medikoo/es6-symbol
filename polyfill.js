@@ -2,14 +2,18 @@
 
 "use strict";
 
-var d              = require("d")
-  , validateSymbol = require("./validate-symbol")
-  , global         = require("es5-ext/global")
-
-  , Symbol = global.Symbol
-  , create = Object.create, defineProperties = Object.defineProperties
-  , defineProperty = Object.defineProperty, objPrototype = Object.prototype
-  , NativeSymbol, SymbolPolyfill, HiddenSymbol, globalSymbols = create(null)
+var d                = require("d")
+  , validateSymbol   = require("./validate-symbol")
+  , global           = require("es5-ext/global")
+  , Symbol           = global.Symbol
+  , create           = Object.create
+  , defineProperties = Object.defineProperties
+  , defineProperty   = Object.defineProperty
+  , objPrototype     = Object.prototype
+  , NativeSymbol
+  , SymbolPolyfill
+  , HiddenSymbol
+  , globalSymbols    = create(null)
   , isNativeSafe;
 
 if (typeof Symbol === "function") {
@@ -25,22 +29,26 @@ var generateName = (function () {
 	return function (desc) {
 		var postfix = 0, name, ie11BugWorkaround;
 		while (created[desc + (postfix || "")]) ++postfix;
-		desc += (postfix || "");
+		desc += postfix || "";
 		created[desc] = true;
 		name = "@@" + desc;
-		defineProperty(objPrototype, name, d.gs(null, function (value) {
-			// For IE11 issue see:
-			// https://connect.microsoft.com/IE/feedbackdetail/view/1928508/
-			//    ie11-broken-getters-on-dom-objects
-			// https://github.com/medikoo/es6-symbol/issues/12
-			if (ie11BugWorkaround) return;
-			ie11BugWorkaround = true;
-			defineProperty(this, name, d(value));
-			ie11BugWorkaround = false;
-		}));
+		defineProperty(
+			objPrototype,
+			name,
+			d.gs(null, function (value) {
+				// For IE11 issue see:
+				// https://connect.microsoft.com/IE/feedbackdetail/view/1928508/
+				//    ie11-broken-getters-on-dom-objects
+				// https://github.com/medikoo/es6-symbol/issues/12
+				if (ie11BugWorkaround) return;
+				ie11BugWorkaround = true;
+				defineProperty(this, name, d(value));
+				ie11BugWorkaround = false;
+			})
+		);
 		return name;
 	};
-}());
+})();
 
 // Internal constructor (not one exposed) for creating Symbol instances.
 // This one is used to ensure that `someSymbol instanceof Symbol` always return false
@@ -56,7 +64,7 @@ module.exports = SymbolPolyfill = function Symbol(description) {
 	if (this instanceof Symbol) throw new TypeError("Symbol is not a constructor");
 	if (isNativeSafe) return NativeSymbol(description);
 	symbol = create(HiddenSymbol.prototype);
-	description = (description === undefined ? "" : String(description));
+	description = description === undefined ? "" : String(description);
 	return defineProperties(symbol, {
 		__description__: d("", description),
 		__name__: d("", generateName(description))
@@ -76,8 +84,10 @@ defineProperties(SymbolPolyfill, {
 	// To ensure proper interoperability with other native functions (e.g. Array.from)
 	// fallback to eventual native implementation of given symbol
 	hasInstance: d("", (NativeSymbol && NativeSymbol.hasInstance) || SymbolPolyfill("hasInstance")),
-	isConcatSpreadable: d("", (NativeSymbol && NativeSymbol.isConcatSpreadable) ||
-		SymbolPolyfill("isConcatSpreadable")),
+	isConcatSpreadable: d(
+		"",
+		(NativeSymbol && NativeSymbol.isConcatSpreadable) || SymbolPolyfill("isConcatSpreadable")
+	),
 	iterator: d("", (NativeSymbol && NativeSymbol.iterator) || SymbolPolyfill("iterator")),
 	match: d("", (NativeSymbol && NativeSymbol.match) || SymbolPolyfill("match")),
 	replace: d("", (NativeSymbol && NativeSymbol.replace) || SymbolPolyfill("replace")),
@@ -101,20 +111,28 @@ defineProperties(SymbolPolyfill.prototype, {
 	toString: d(function () { return "Symbol (" + validateSymbol(this).__description__ + ")"; }),
 	valueOf: d(function () { return validateSymbol(this); })
 });
-defineProperty(SymbolPolyfill.prototype, SymbolPolyfill.toPrimitive, d("", function () {
-	var symbol = validateSymbol(this);
-	if (typeof symbol === "symbol") return symbol;
-	return symbol.toString();
-}));
+defineProperty(
+	SymbolPolyfill.prototype,
+	SymbolPolyfill.toPrimitive,
+	d("", function () {
+		var symbol = validateSymbol(this);
+		if (typeof symbol === "symbol") return symbol;
+		return symbol.toString();
+	})
+);
 defineProperty(SymbolPolyfill.prototype, SymbolPolyfill.toStringTag, d("c", "Symbol"));
 
 // Proper implementaton of toPrimitive and toStringTag for returned symbol instances
-defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toStringTag,
-	d("c", SymbolPolyfill.prototype[SymbolPolyfill.toStringTag]));
+defineProperty(
+	HiddenSymbol.prototype, SymbolPolyfill.toStringTag,
+	d("c", SymbolPolyfill.prototype[SymbolPolyfill.toStringTag])
+);
 
 // Note: It's important to define `toPrimitive` as last one, as some implementations
 // implement `toPrimitive` natively without implementing `toStringTag` (or other specified symbols)
 // And that may invoke error in definition flow:
 // See: https://github.com/medikoo/es6-symbol/issues/13#issuecomment-164146149
-defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
-	d("c", SymbolPolyfill.prototype[SymbolPolyfill.toPrimitive]));
+defineProperty(
+	HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
+	d("c", SymbolPolyfill.prototype[SymbolPolyfill.toPrimitive])
+);

@@ -1,7 +1,9 @@
 # es6-symbol
+
 ## ECMAScript 6 Symbol polyfill
 
 For more information about symbols see following links
+
 - [Symbols in ECMAScript 6 by Axel Rauschmayer](http://www.2ality.com/2014/12/es6-symbols.html)
 - [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
 - [Specification](https://tc39.github.io/ecma262/#sec-symbol-objects)
@@ -12,22 +14,22 @@ Underneath it uses real string property names which can easily be retrieved, how
 
 ### Usage
 
-If you'd like to use native version when it exists and fallback to [ponyfill](https://ponyfill.com) if it doesn't, use *es6-symbol* as following:
+If you'd like to use native version when it exists and fallback to [ponyfill](https://ponyfill.com) if it doesn't, use _es6-symbol_ as following:
 
 ```javascript
-var Symbol = require('es6-symbol');
+var Symbol = require("es6-symbol");
 ```
 
 If you want to make sure your environment implements `Symbol` globally, do:
 
 ```javascript
-require('es6-symbol/implement');
+require("es6-symbol/implement");
 ```
 
 If you strictly want to use polyfill even if native `Symbol` exists (hard to find a good reason for that), do:
 
 ```javascript
-var Symbol = require('es6-symbol/polyfill');
+var Symbol = require("es6-symbol/polyfill");
 ```
 
 #### API
@@ -35,20 +37,21 @@ var Symbol = require('es6-symbol/polyfill');
 Best is to refer to [specification](https://tc39.github.io/ecma262/#sec-symbol-objects). Still if you want quick look, follow examples:
 
 ```javascript
-var Symbol = require('es6-symbol');
+var Symbol = require("es6-symbol");
 
-var symbol = Symbol('My custom symbol');
+var symbol = Symbol("My custom symbol");
 var x = {};
 
-x[symbol] = 'foo';
-console.log(x[symbol]); 'foo'
+x[symbol] = "foo";
+console.log(x[symbol]);
+("foo");
 
 // Detect iterable:
 var iterator, result;
 if (possiblyIterable[Symbol.iterator]) {
   iterator = possiblyIterable[Symbol.iterator]();
   result = iterator.next();
-  while(!result.done) {
+  while (!result.done) {
     console.log(result.value);
     result = iterator.next();
   }
@@ -56,11 +59,12 @@ if (possiblyIterable[Symbol.iterator]) {
 ```
 
 ### Installation
+
 #### NPM
 
 In your project path:
 
-	$ npm install es6-symbol
+    $ npm install es6-symbol
 
 ##### Browser
 
@@ -68,7 +72,7 @@ To port it to Browser or any other (non CJS) environment, use your favorite CJS 
 
 ## Tests [![Build Status](https://travis-ci.org/medikoo/es6-symbol.png)](https://travis-ci.org/medikoo/es6-symbol)
 
-	$ npm test
+    $ npm test
 
 ## Security contact information
 

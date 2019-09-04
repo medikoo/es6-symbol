@@ -1,7 +1,6 @@
 "use strict";
 
-var global = require("es5-ext/global")
-
+var global     = require("es5-ext/global")
   , validTypes = { object: true, symbol: true };
 
 module.exports = function () {
@@ -9,7 +8,8 @@ module.exports = function () {
 	var symbol;
 	if (typeof Symbol !== "function") return false;
 	symbol = Symbol("test symbol");
-	try { String(symbol); } catch (e) { return false; }
+	try { String(symbol); }
+	catch (e) { return false; }
 
 	// Return 'true' also for polyfills
 	if (!validTypes[typeof Symbol.iterator]) return false;

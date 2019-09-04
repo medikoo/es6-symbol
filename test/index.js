@@ -1,7 +1,6 @@
 "use strict";
 
-var d = require("d")
-
+var d              = require("d")
   , defineProperty = Object.defineProperty;
 
 module.exports = function (T, a) {

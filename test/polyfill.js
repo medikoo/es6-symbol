@@ -1,8 +1,7 @@
 "use strict";
 
-var d        = require("d")
-  , isSymbol = require("../is-symbol")
-
+var d              = require("d")
+  , isSymbol       = require("../is-symbol")
   , defineProperty = Object.defineProperty;
 
 module.exports = function (T, a) {
@@ -19,10 +18,12 @@ module.exports = function (T, a) {
 	x = {};
 	x[symbol] = "foo";
 	if (typeof symbol !== "symbol") {
-		a.deep(Object.getOwnPropertyDescriptor(x, symbol), { configurable: true,
-enumerable: false,
+		a.deep(Object.getOwnPropertyDescriptor(x, symbol), {
+			configurable: true,
+			enumerable: false,
 			value: "foo",
-writable: true });
+			writable: true
+		});
 	}
 	symbol = T.for("marko");
 	a(isSymbol(symbol), true);

@@ -5,5 +5,5 @@ module.exports = function (x) {
 	if (typeof x === "symbol") return true;
 	if (!x.constructor) return false;
 	if (x.constructor.name !== "Symbol") return false;
-	return (x[x.constructor.toStringTag] === "Symbol");
+	return x[x.constructor.toStringTag] === "Symbol";
 };
