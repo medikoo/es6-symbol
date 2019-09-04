@@ -1,3 +1,8 @@
+[![Build status][nix-build-image]][nix-build-url]
+[![Windows status][win-build-image]][win-build-url]
+![Transpilation status][transpilation-image]
+[![npm version][npm-image]][npm-url]
+
 # es6-symbol
 
 ## ECMAScript 6 Symbol polyfill
@@ -70,7 +75,7 @@ In your project path:
 
 To port it to Browser or any other (non CJS) environment, use your favorite CJS bundler. No favorite yet? Try: [Browserify](http://browserify.org/), [Webmake](https://github.com/medikoo/modules-webmake) or [Webpack](http://webpack.github.io/)
 
-## Tests [![Build Status](https://travis-ci.org/medikoo/es6-symbol.png)](https://travis-ci.org/medikoo/es6-symbol)
+## Tests
 
     $ npm test
 
@@ -89,3 +94,11 @@ To report a security vulnerability, please use the [Tidelift security contact](h
 		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
 	</sub>
 </div>
+
+[nix-build-image]: https://semaphoreci.com/api/v1/medikoo-org/es6-symbol/branches/master/shields_badge.svg
+[nix-build-url]: https://semaphoreci.com/medikoo-org/es6-symbol
+[win-build-image]: https://ci.appveyor.com/api/projects/status/1s743lt3el278anj?svg=true
+[win-build-url]: https://ci.appveyor.com/project/medikoo/es6-symbol
+[transpilation-image]: https://img.shields.io/badge/transpilation-free-brightgreen.svg
+[npm-image]: https://img.shields.io/npm/v/es6-symbol.svg
+[npm-url]: https://www.npmjs.com/package/es6-symbol
