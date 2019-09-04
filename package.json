@@ -22,13 +22,16 @@
 		"es5-ext": "^0.10.51"
 	},
 	"devDependencies": {
-		"tad": "^2.0.1",
-		"xlint": "^0.2.2",
-		"xlint-jslint-medikoo": "^0.1.4"
+		"eslint": "^6.3.0",
+		"eslint-config-medikoo": "^2.5.1",
+		"tad": "^2.0.1"
+	},
+	"eslintConfig": {
+		"extends": "medikoo/es5",
+		"root": true
 	},
 	"scripts": {
-		"lint": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --no-cache --no-stream",
-		"lint-console": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --watch",
+		"lint": "eslint --ignore-path=.gitignore .",
 		"test": "node ./node_modules/tad/bin/tad"
 	},
 	"license": "ISC"
