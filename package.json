@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "d": "^1.0.1",
-    "es5-ext": "^0.10.50"
+    "es5-ext": "^0.10.51"
   },
   "devDependencies": {
     "tad": "^2.0.1",
