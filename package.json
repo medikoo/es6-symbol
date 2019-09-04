@@ -29,7 +29,36 @@
 	},
 	"eslintConfig": {
 		"extends": "medikoo/es5",
-		"root": true
+		"root": true,
+		"rules": {
+			"new-cap": [
+				"error",
+				{
+					"capIsNewExceptions": [
+						"NativeSymbol",
+						"SymbolPolyfill"
+					]
+				}
+			]
+		},
+		"overrides": [
+			{
+				"files": [
+					"polyfill.js"
+				],
+				"rules": {
+					"func-names": "off"
+				}
+			},
+			{
+				"files": [
+					"test/*.js"
+				],
+				"globals": {
+					"Symbol": true
+				}
+			}
+		]
 	},
 	"prettier": {
 		"printWidth": 100,

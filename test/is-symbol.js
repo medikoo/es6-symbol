@@ -1,6 +1,6 @@
 "use strict";
 
-var SymbolPoly = require("../polyfill");
+var SymbolPolyfill = require("../polyfill");
 
 module.exports = function (t, a) {
 	a(t(undefined), false, "Undefined");
@@ -10,7 +10,7 @@ module.exports = function (t, a) {
 	a(t({}), false, "Object");
 	a(t([]), false, "Array");
 	if (typeof Symbol !== "undefined") {
-		a(t(Symbol()), true, "Native");
+		a(t(Symbol("foo")), true, "Native");
 	}
-	a(t(SymbolPoly()), true, "Polyfill");
+	a(t(SymbolPolyfill()), true, "Polyfill");
 };

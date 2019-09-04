@@ -2,26 +2,25 @@
 
 "use strict";
 
-var d                = require("d")
-  , validateSymbol   = require("./validate-symbol")
-  , global           = require("es5-ext/global")
-  , Symbol           = global.Symbol
-  , create           = Object.create
-  , defineProperties = Object.defineProperties
-  , defineProperty   = Object.defineProperty
-  , objPrototype     = Object.prototype
-  , NativeSymbol
-  , SymbolPolyfill
-  , HiddenSymbol
-  , globalSymbols    = create(null)
-  , isNativeSafe;
+var d              = require("d")
+  , validateSymbol = require("./validate-symbol")
+  , NativeSymbol   = require("es5-ext/global").Symbol;
 
-if (typeof Symbol === "function") {
-	NativeSymbol = Symbol;
+var create = Object.create
+  , defineProperties = Object.defineProperties
+  , defineProperty = Object.defineProperty
+  , objPrototype = Object.prototype
+  , globalSymbols = create(null);
+
+var SymbolPolyfill, HiddenSymbol, isNativeSafe;
+
+if (typeof NativeSymbol === "function") {
 	try {
 		String(NativeSymbol());
 		isNativeSafe = true;
 	} catch (ignore) {}
+} else {
+	NativeSymbol = null;
 }
 
 var generateName = (function () {
@@ -75,10 +74,13 @@ defineProperties(SymbolPolyfill, {
 		if (globalSymbols[key]) return globalSymbols[key];
 		return (globalSymbols[key] = SymbolPolyfill(String(key)));
 	}),
-	keyFor: d(function (s) {
+	keyFor: d(function (symbol) {
 		var key;
-		validateSymbol(s);
-		for (key in globalSymbols) if (globalSymbols[key] === s) return key;
+		validateSymbol(symbol);
+		for (key in globalSymbols) {
+			if (globalSymbols[key] === symbol) return key;
+		}
+		return undefined;
 	}),
 
 	// To ensure proper interoperability with other native functions (e.g. Array.from)
