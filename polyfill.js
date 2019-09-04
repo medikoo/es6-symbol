@@ -2,11 +2,12 @@
 
 "use strict";
 
-var d                   = require("d")
-  , validateSymbol      = require("./validate-symbol")
-  , NativeSymbol        = require("es5-ext/global").Symbol
-  , generateName        = require("./lib/private/generate-name")
-  , setupSymbolRegistry = require("./lib/private/setup/symbol-registry");
+var d                    = require("d")
+  , validateSymbol       = require("./validate-symbol")
+  , NativeSymbol         = require("es5-ext/global").Symbol
+  , generateName         = require("./lib/private/generate-name")
+  , setupStandardSymbols = require("./lib/private/setup/standard-symbols")
+  , setupSymbolRegistry  = require("./lib/private/setup/symbol-registry");
 
 var create = Object.create
   , defineProperties = Object.defineProperties
@@ -43,25 +44,8 @@ module.exports = SymbolPolyfill = function Symbol(description) {
 		__name__: d("", generateName(description))
 	});
 };
-defineProperties(SymbolPolyfill, {
-	// To ensure proper interoperability with other native functions (e.g. Array.from)
-	// fallback to eventual native implementation of given symbol
-	hasInstance: d("", (NativeSymbol && NativeSymbol.hasInstance) || SymbolPolyfill("hasInstance")),
-	isConcatSpreadable: d(
-		"",
-		(NativeSymbol && NativeSymbol.isConcatSpreadable) || SymbolPolyfill("isConcatSpreadable")
-	),
-	iterator: d("", (NativeSymbol && NativeSymbol.iterator) || SymbolPolyfill("iterator")),
-	match: d("", (NativeSymbol && NativeSymbol.match) || SymbolPolyfill("match")),
-	replace: d("", (NativeSymbol && NativeSymbol.replace) || SymbolPolyfill("replace")),
-	search: d("", (NativeSymbol && NativeSymbol.search) || SymbolPolyfill("search")),
-	species: d("", (NativeSymbol && NativeSymbol.species) || SymbolPolyfill("species")),
-	split: d("", (NativeSymbol && NativeSymbol.split) || SymbolPolyfill("split")),
-	toPrimitive: d("", (NativeSymbol && NativeSymbol.toPrimitive) || SymbolPolyfill("toPrimitive")),
-	toStringTag: d("", (NativeSymbol && NativeSymbol.toStringTag) || SymbolPolyfill("toStringTag")),
-	unscopables: d("", (NativeSymbol && NativeSymbol.unscopables) || SymbolPolyfill("unscopables"))
-});
 
+setupStandardSymbols(SymbolPolyfill);
 setupSymbolRegistry(SymbolPolyfill);
 
 // Internal tweaks for real symbol producer
