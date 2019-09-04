@@ -2,15 +2,15 @@
 
 "use strict";
 
-var d              = require("d")
-  , validateSymbol = require("./validate-symbol")
-  , NativeSymbol   = require("es5-ext/global").Symbol
-  , generateName   = require("./lib/private/generate-name");
+var d                   = require("d")
+  , validateSymbol      = require("./validate-symbol")
+  , NativeSymbol        = require("es5-ext/global").Symbol
+  , generateName        = require("./lib/private/generate-name")
+  , setupSymbolRegistry = require("./lib/private/setup/symbol-registry");
 
 var create = Object.create
   , defineProperties = Object.defineProperties
-  , defineProperty = Object.defineProperty
-  , globalSymbols = create(null);
+  , defineProperty = Object.defineProperty;
 
 var SymbolPolyfill, HiddenSymbol, isNativeSafe;
 
@@ -44,19 +44,6 @@ module.exports = SymbolPolyfill = function Symbol(description) {
 	});
 };
 defineProperties(SymbolPolyfill, {
-	for: d(function (key) {
-		if (globalSymbols[key]) return globalSymbols[key];
-		return (globalSymbols[key] = SymbolPolyfill(String(key)));
-	}),
-	keyFor: d(function (symbol) {
-		var key;
-		validateSymbol(symbol);
-		for (key in globalSymbols) {
-			if (globalSymbols[key] === symbol) return key;
-		}
-		return undefined;
-	}),
-
 	// To ensure proper interoperability with other native functions (e.g. Array.from)
 	// fallback to eventual native implementation of given symbol
 	hasInstance: d("", (NativeSymbol && NativeSymbol.hasInstance) || SymbolPolyfill("hasInstance")),
@@ -74,6 +61,8 @@ defineProperties(SymbolPolyfill, {
 	toStringTag: d("", (NativeSymbol && NativeSymbol.toStringTag) || SymbolPolyfill("toStringTag")),
 	unscopables: d("", (NativeSymbol && NativeSymbol.unscopables) || SymbolPolyfill("unscopables"))
 });
+
+setupSymbolRegistry(SymbolPolyfill);
 
 // Internal tweaks for real symbol producer
 defineProperties(HiddenSymbol.prototype, {
