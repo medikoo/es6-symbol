@@ -13,10 +13,7 @@
 		"ponyfill",
 		"polyfill"
 	],
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/medikoo/es6-symbol.git"
-	},
+	"repository": "medikoo/es6-symbol",
 	"dependencies": {
 		"d": "^1.0.1",
 		"ext": "^1.1.2"
