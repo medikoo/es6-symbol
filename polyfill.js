@@ -61,8 +61,7 @@ defineProperties(SymbolPolyfill.prototype, {
 	valueOf: d(function () { return validateSymbol(this); })
 });
 defineProperty(
-	SymbolPolyfill.prototype,
-	SymbolPolyfill.toPrimitive,
+	SymbolPolyfill.prototype, SymbolPolyfill.toPrimitive,
 	d("", function () {
 		var symbol = validateSymbol(this);
 		if (typeof symbol === "symbol") return symbol;
