@@ -15,8 +15,8 @@
 	],
 	"repository": "medikoo/es6-symbol",
 	"dependencies": {
-		"d": "^1.0.1",
-		"ext": "^1.1.2"
+		"d": "^1.0.2",
+		"ext": "^1.7.0"
 	},
 	"devDependencies": {
 		"eslint": "^8.57.0",
@@ -27,7 +27,7 @@
 		"lint-staged": "~13.2.3",
 		"nyc": "^15.1.0",
 		"prettier-elastic": "^2.8.8",
-		"tad": "^3.0.1"
+		"tad": "^3.1.1"
 	},
 	"eslintConfig": {
 		"extends": "medikoo/es5",
